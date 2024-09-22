@@ -1,14 +1,6 @@
-console.log(stringToInteger('4321') === 4321); // logs true
-console.log(stringToInteger('570') === 570); // logs true
-
-// function stringToInteger(string) {
-//   let array = string.split('').reverse();
-//   let result = 0;
-//   array.forEach((value, idx) => {
-//     result += value * 10 ** idx;
-//   });
-//   return result;
-// }
+console.log(stringToSignedInteger('4321') === 4321); // logs true
+console.log(stringToSignedInteger('-570') === -570); // logs true
+console.log(stringToSignedInteger('+100') === 100); // logs true
 
 function stringToInteger(string) {
   const DIGITS = {
@@ -28,7 +20,14 @@ function stringToInteger(string) {
   let array = string.split('').map((number) => DIGITS[number]);
   array.forEach((digit) => {
     value = 10 * value + digit;
-    console.log({ digit, value });
   });
   return value;
+}
+
+function stringToSignedInteger(string) {
+  if (string[0] === '+' || string[0].match(/[0-9]/g)) {
+    return stringToInteger(string.replace('+', ''));
+  } else if (string[0] === '-') {
+    return -stringToInteger(string.slice(1));
+  }
 }
