@@ -1,4 +1,4 @@
-substrings('abcde');
+console.log(substrings('abcde'));
 
 // returns
 // [ "a", "ab", "abc", "abcd", "abcde",
@@ -8,7 +8,6 @@ substrings('abcde');
 //   "e" ]
 
 function substrings(string) {
-  let result = [];
   function leadingSubstrings(string) {
     let substrings = [];
 
@@ -16,12 +15,17 @@ function substrings(string) {
       substrings.push(string.slice(0, length));
     }
 
+    // console.log(substrings);
     return substrings;
   }
 
-  for (let i = 0; i < string.length; i += 1) {
-    result.push(leadingSubstrings(string.slice(i)));
-  }
+  let substrings = [];
 
-  console.log(result);
+  string.split('').forEach((_, idx) => {
+    substrings.push(leadingSubstrings(string.slice(idx)));
+  });
+
+  leadingSubstrings(string);
+
+  return substrings;
 }
